@@ -28,7 +28,7 @@ const AboutSection: React.FC = () => {
               <div className="space-y-4">
                 <h1 className="text-4xl md:text-6xl font-bold">
                   <span className="bg-gradient-primary bg-clip-text text-transparent">
-                    Treesa Kuriakose
+                    Dario George
                   </span>
                 </h1>
                 <p className="text-xl text-muted-foreground">
@@ -71,27 +71,25 @@ const AboutSection: React.FC = () => {
                 <div className="relative w-64 h-64 rounded-full bg-gradient-secondary p-1">
                 <img
                     src={profilePhoto}
-                    alt="Treesa Kuriakose"
+                    alt="Dario George"
                     className="w-full h-full rounded-full object-cover"
                   />
                 </div>
-                <div className="absolute -bottom-4 -right-4 bg-card/90 backdrop-blur-sm border border-border rounded-lg px-3 py-2">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="text-xs text-muted-foreground">Available for projects</span>
-                  </div>
+                <div className="absolute -top-2 -right-2">
+                  <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-xs text-muted-foreground ml-2">Available for projects</span>
                 </div>
               </div>
             </div>
           </div>
 
-            {/* Code Snippet */}
-            <div className="absolute bottom-4 right-4 bg-card/90 backdrop-blur-sm border border-border rounded-lg px-4 py-3">
-              <code className="text-sm text-primary font-mono">
-                const developer = new Developer(); <br />
-                await skills.improve();
-              </code>
-            </div>
+          {/* Code Snippet */}
+          <div className="mt-8 p-4 bg-muted/30 rounded-lg border border-accent/20">
+            <code className="text-sm text-primary">
+              const developer = new Developer(); <br />
+              await skills.improve();
+            </code>
+          </div>
         </Card>
       </section>
 

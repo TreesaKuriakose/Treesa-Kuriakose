@@ -56,7 +56,7 @@ const Footer: React.FC = () => {
 
         <div className="border-t border-border/20 mt-8 pt-8 text-center">
           <p className="text-muted-foreground">
-            © 2025 Treesa Kuriakose. All rights reserved.
+            © 2025 Dario George. All rights reserved.
           </p>
         </div>
       </div>
