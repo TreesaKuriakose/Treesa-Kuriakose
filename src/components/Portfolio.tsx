@@ -59,7 +59,7 @@ const Portfolio: React.FC = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-8">
             <h1 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-              Portfolio
+              Treesa Kuriakose
             </h1>
             
             <Button
@@ -75,24 +75,33 @@ const Portfolio: React.FC = () => {
           {/* Navigation Tabs */}
           <div className="relative">
             <div className="glass-card rounded-xl p-2">
-              <div className="flex flex-wrap gap-1 relative">
+              <div className="flex flex-wrap justify-center gap-1 relative">
+                {/* Sliding background indicator */}
+                <div 
+                  className="absolute top-2 bottom-2 bg-gradient-primary rounded-lg transition-all duration-[0.9s] ease-[cubic-bezier(0.4,0,0.2,1)] glow-primary"
+                  style={{
+                    left: `${tabs.findIndex(tab => tab.id === activeTab) * (100 / tabs.length)}%`,
+                    width: `${100 / tabs.length}%`,
+                    transform: 'translateX(0.5rem)'
+                  }}
+                />
                 {tabs.map((tab, index) => {
                   const Icon = tab.icon;
                   return (
                     <Button
                       key={tab.id}
-                      variant={activeTab === tab.id ? "default" : "ghost"}
+                      variant="ghost"
                       onClick={() => setActiveTab(tab.id)}
                       className={`
-                        flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300
+                        relative z-10 flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-[0.9s]
                         ${activeTab === tab.id 
-                          ? 'bg-gradient-primary text-primary-foreground glow-primary' 
-                          : 'hover:bg-accent/50'
+                          ? 'text-primary-foreground' 
+                          : 'text-muted-foreground hover:text-foreground hover:bg-accent/20'
                         }
                       `}
                     >
                       <Icon className="w-4 h-4" />
-                      <span className="hidden sm:inline">{tab.label}</span>
+                      <span className="hidden sm:inline font-medium">{tab.label}</span>
                     </Button>
                   );
                 })}

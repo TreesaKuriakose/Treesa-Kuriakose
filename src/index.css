@@ -254,4 +254,14 @@
       transform: translateY(0);
     }
   }
+
+  /* Smooth tab sliding animation */
+  .tab-slide {
+    transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Better heading visibility */
+  .heading-glow {
+    text-shadow: 0 0 20px hsl(var(--primary) / 0.5);
+  }
 }

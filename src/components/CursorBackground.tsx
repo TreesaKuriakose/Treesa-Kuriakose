@@ -30,15 +30,15 @@ const CursorBackground: React.FC = () => {
     const handleMouseMove = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
       
-      // Create particles around cursor
-      for (let i = 0; i < 3; i++) {
+      // Create particles around cursor with more dynamic movement
+      for (let i = 0; i < 5; i++) {
         particles.current.push({
-          x: e.clientX + (Math.random() - 0.5) * 20,
-          y: e.clientY + (Math.random() - 0.5) * 20,
-          vx: (Math.random() - 0.5) * 2,
-          vy: (Math.random() - 0.5) * 2,
+          x: e.clientX + (Math.random() - 0.5) * 30,
+          y: e.clientY + (Math.random() - 0.5) * 30,
+          vx: (Math.random() - 0.5) * 3,
+          vy: (Math.random() - 0.5) * 3,
           life: 0,
-          maxLife: 60 + Math.random() * 40
+          maxLife: 80 + Math.random() * 60
         });
       }
     };

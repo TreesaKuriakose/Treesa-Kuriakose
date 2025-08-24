@@ -28,7 +28,7 @@ const AboutSection: React.FC = () => {
               <div className="space-y-4">
                 <h1 className="text-4xl md:text-6xl font-bold">
                   <span className="bg-gradient-primary bg-clip-text text-transparent">
-                    Dario George
+                    Treesa Kuriakose
                   </span>
                 </h1>
                 <p className="text-xl text-muted-foreground">
@@ -71,24 +71,36 @@ const AboutSection: React.FC = () => {
                 <div className="relative w-64 h-64 rounded-full bg-gradient-secondary p-1">
                 <img
                     src={profilePhoto}
-                    alt="Dario George"
+                    alt="Treesa Kuriakose"
                     className="w-full h-full rounded-full object-cover"
                   />
                 </div>
-                <div className="absolute -top-2 -right-2">
-                  <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-xs text-muted-foreground ml-2">Available for projects</span>
+                <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 flex items-center gap-2 bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full border border-border/30">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-xs text-muted-foreground">Available for projects</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Code Snippet */}
-          <div className="mt-8 p-4 bg-muted/30 rounded-lg border border-accent/20">
-            <code className="text-sm text-primary">
-              const developer = new Developer(); <br />
-              await skills.improve();
-            </code>
+          <div className="mt-12 mx-auto max-w-md">
+            <div className="p-4 bg-muted/30 rounded-lg border border-accent/20 font-mono">
+              <div className="text-sm">
+                <span className="text-purple-400">const</span>{' '}
+                <span className="text-blue-300">developer</span>{' '}
+                <span className="text-white">=</span>{' '}
+                <span className="text-yellow-300">new</span>{' '}
+                <span className="text-green-300">Developer</span>
+                <span className="text-white">();</span>
+                <br />
+                <span className="text-purple-400">await</span>{' '}
+                <span className="text-blue-300">skills</span>
+                <span className="text-white">.</span>
+                <span className="text-yellow-300">improve</span>
+                <span className="text-white">();</span>
+              </div>
+            </div>
           </div>
         </Card>
       </section>
