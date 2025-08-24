@@ -58,9 +58,12 @@ const Portfolio: React.FC = () => {
       <header className="relative z-10 p-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-8">
-            <h1 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-              Portfolio
-            </h1>
+            <div className="text-center">
+              <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
+                Portfolio
+              </h1>
+              <h2 className="text-xl text-muted-foreground">Treesa Kuriakose</h2>
+            </div>
             
             <Button
               variant="outline"
@@ -73,26 +76,35 @@ const Portfolio: React.FC = () => {
           </div>
 
           {/* Navigation Tabs */}
-          <div className="relative">
-            <div className="glass-card rounded-xl p-2">
+          <div className="relative mt-8">
+            <div className="glass-card rounded-xl p-2 relative overflow-hidden">
               <div className="flex flex-wrap gap-1 relative">
+                {/* Sliding indicator */}
+                <div 
+                  className="absolute top-2 left-2 h-10 bg-gradient-primary rounded-lg transition-all duration-700 ease-out z-0"
+                  style={{
+                    width: `${100 / tabs.length}%`,
+                    transform: `translateX(${tabs.findIndex(tab => tab.id === activeTab) * 100}%)`
+                  }}
+                />
                 {tabs.map((tab, index) => {
                   const Icon = tab.icon;
                   return (
                     <Button
                       key={tab.id}
-                      variant={activeTab === tab.id ? "default" : "ghost"}
+                      variant="ghost"
                       onClick={() => setActiveTab(tab.id)}
                       className={`
-                        flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300
+                        flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-700 ease-out relative z-10
                         ${activeTab === tab.id 
-                          ? 'bg-gradient-primary text-primary-foreground glow-primary' 
-                          : 'hover:bg-accent/50'
+                          ? 'text-primary-foreground' 
+                          : 'hover:bg-accent/20 text-foreground'
                         }
                       `}
+                      style={{ width: `${100 / tabs.length}%` }}
                     >
                       <Icon className="w-4 h-4" />
-                      <span className="hidden sm:inline">{tab.label}</span>
+                      <span className="hidden sm:inline text-sm font-medium">{tab.label}</span>
                     </Button>
                   );
                 })}
@@ -105,7 +117,14 @@ const Portfolio: React.FC = () => {
       {/* Main Content */}
       <main className="relative z-10 px-6 pb-20">
         <div className="max-w-7xl mx-auto">
-          <div className="animate-fade-in">
+          <div 
+            key={activeTab} 
+            className="animate-fade-in transition-all duration-700 ease-out"
+            style={{
+              transform: 'translateX(0)',
+              opacity: 1
+            }}
+          >
             {renderContent()}
           </div>
         </div>
