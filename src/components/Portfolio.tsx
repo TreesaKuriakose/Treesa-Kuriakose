@@ -78,13 +78,10 @@ const Portfolio: React.FC = () => {
               <div className="flex justify-center gap-1 relative">
                 {/* Sliding background indicator */}
                 <div 
-                  className="absolute top-2 bottom-2 bg-gradient-primary rounded-lg transition-all duration-[0.9s] ease-[cubic-bezier(0.4,0,0.2,1)] glow-primary"
+                  className="absolute top-2 bottom-2 bg-gradient-primary rounded-lg transition-all duration-[900ms] ease-[cubic-bezier(0.4,0,0.2,1)] glow-primary"
                   style={{
-                    left: `${tabs.findIndex(tab => tab.id === activeTab) * (100 / tabs.length)}%`,
-                    width: `${100 / tabs.length}%`,
-                    transform: 'translateX(0.25rem)',
-                    marginLeft: '0.125rem',
-                    marginRight: '0.125rem'
+                    left: `calc(${tabs.findIndex(tab => tab.id === activeTab) * (100 / tabs.length)}% + 0.25rem)`,
+                    width: `calc(${100 / tabs.length}% - 0.125rem)`,
                   }}
                 />
                 {tabs.map((tab, index) => {
