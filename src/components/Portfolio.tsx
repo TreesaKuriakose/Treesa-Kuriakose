@@ -75,14 +75,16 @@ const Portfolio: React.FC = () => {
           {/* Navigation Tabs */}
           <div className="relative">
             <div className="glass-card rounded-xl p-2">
-              <div className="flex flex-wrap justify-center gap-1 relative">
+              <div className="flex justify-center gap-1 relative">
                 {/* Sliding background indicator */}
                 <div 
                   className="absolute top-2 bottom-2 bg-gradient-primary rounded-lg transition-all duration-[0.9s] ease-[cubic-bezier(0.4,0,0.2,1)] glow-primary"
                   style={{
                     left: `${tabs.findIndex(tab => tab.id === activeTab) * (100 / tabs.length)}%`,
                     width: `${100 / tabs.length}%`,
-                    transform: 'translateX(0.5rem)'
+                    transform: 'translateX(0.25rem)',
+                    marginLeft: '0.125rem',
+                    marginRight: '0.125rem'
                   }}
                 />
                 {tabs.map((tab, index) => {
@@ -93,9 +95,9 @@ const Portfolio: React.FC = () => {
                       variant="ghost"
                       onClick={() => setActiveTab(tab.id)}
                       className={`
-                        relative z-10 flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-[0.9s]
+                        relative z-10 flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-[0.9s] flex-1 justify-center
                         ${activeTab === tab.id 
-                          ? 'text-primary-foreground' 
+                          ? 'text-primary-foreground font-medium' 
                           : 'text-muted-foreground hover:text-foreground hover:bg-accent/20'
                         }
                       `}

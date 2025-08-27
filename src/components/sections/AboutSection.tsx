@@ -75,17 +75,17 @@ const AboutSection: React.FC = () => {
                     className="w-full h-full rounded-full object-cover"
                   />
                 </div>
-                <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 flex items-center gap-2 bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full border border-border/30">
+                <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 flex items-center gap-2 bg-background/80 backdrop-blur-sm px-4 py-2 rounded-full border border-border/30">
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-xs text-muted-foreground">Available for projects</span>
+                  <span className="text-sm text-muted-foreground">Available for projects</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Code Snippet */}
-          <div className="mt-12 mx-auto max-w-md">
-            <div className="p-4 bg-muted/30 rounded-lg border border-accent/20 font-mono">
+          <div className="mt-16 mx-auto max-w-md">
+            <div className="p-6 bg-muted/30 rounded-lg border border-accent/20 font-mono">
               <div className="text-sm">
                 <span className="text-purple-400">const</span>{' '}
                 <span className="text-blue-300">developer</span>{' '}
