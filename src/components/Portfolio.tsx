@@ -29,6 +29,20 @@ const Portfolio: React.FC = () => {
     document.documentElement.classList.toggle('dark', isDark);
   }, [isDark]);
 
+  // Custom cursor tracking
+  React.useEffect(() => {
+    const updateCursor = (e: MouseEvent) => {
+      const cursor = document.body;
+      if (cursor) {
+        cursor.style.setProperty('--mouse-x', `${e.clientX}px`);
+        cursor.style.setProperty('--mouse-y', `${e.clientY}px`);
+      }
+    };
+
+    document.addEventListener('mousemove', updateCursor);
+    return () => document.removeEventListener('mousemove', updateCursor);
+  }, []);
+
   const renderContent = () => {
     switch (activeTab) {
       case 'about':

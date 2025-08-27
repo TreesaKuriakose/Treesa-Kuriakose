@@ -142,6 +142,8 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     overflow-x: hidden;
+    --mouse-x: 0px;
+    --mouse-y: 0px;
   }
 
   html {
@@ -272,5 +274,36 @@
   
   .bg-gradient-primary {
     background: var(--gradient-primary);
+  }
+
+  /* Custom cursor dot */
+  * {
+    cursor: none !important;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: var(--mouse-y);
+    left: var(--mouse-x);
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    transition: transform 0.1s ease-out;
+    transform: translate(-50%, -50%);
+  }
+
+  @media (pointer: coarse) {
+    * {
+      cursor: auto !important;
+    }
+    
+    body::after {
+      display: none;
+    }
   }
 }
