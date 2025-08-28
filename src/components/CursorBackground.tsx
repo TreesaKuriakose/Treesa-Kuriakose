@@ -17,6 +17,33 @@ const CursorBackground: React.FC = () => {
   const animationRef = useRef<number>();
   const lastMoveTime = useRef<number>(0);
 
+  // Move useCallback outside of useEffect
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    const now = Date.now();
+    mouseRef.current = { x: e.clientX, y: e.clientY, isMoving: true };
+    lastMoveTime.current = now;
+    
+    // Create fewer, higher quality particles
+    if (now - lastMoveTime.current < 50) { // Only create particles during active movement
+      for (let i = 0; i < 3; i++) {
+        particles.current.push({
+          x: e.clientX + (Math.random() - 0.5) * 30,
+          y: e.clientY + (Math.random() - 0.5) * 30,
+          vx: (Math.random() - 0.5) * 2,
+          vy: (Math.random() - 0.5) * 2,
+          life: 0,
+          maxLife: 60 + Math.random() * 40,
+          size: 1 + Math.random() * 2
+        });
+      }
+    }
+    
+    // Limit particle count for performance
+    if (particles.current.length > 100) {
+      particles.current = particles.current.slice(-80);
+    }
+  }, []);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -30,37 +57,15 @@ const CursorBackground: React.FC = () => {
     };
 
     let throttleTimer: NodeJS.Timeout;
-    const handleMouseMove = useCallback((e: MouseEvent) => {
-      const now = Date.now();
-      mouseRef.current = { x: e.clientX, y: e.clientY, isMoving: true };
-      lastMoveTime.current = now;
+    const throttledMouseMove = (e: MouseEvent) => {
+      handleMouseMove(e);
       
       // Throttle particle creation for performance
       if (throttleTimer) clearTimeout(throttleTimer);
       throttleTimer = setTimeout(() => {
         mouseRef.current.isMoving = false;
       }, 150);
-      
-      // Create fewer, higher quality particles
-      if (now - lastMoveTime.current < 50) { // Only create particles during active movement
-        for (let i = 0; i < 3; i++) {
-          particles.current.push({
-            x: e.clientX + (Math.random() - 0.5) * 30,
-            y: e.clientY + (Math.random() - 0.5) * 30,
-            vx: (Math.random() - 0.5) * 2,
-            vy: (Math.random() - 0.5) * 2,
-            life: 0,
-            maxLife: 60 + Math.random() * 40,
-            size: 1 + Math.random() * 2
-          });
-        }
-      }
-      
-      // Limit particle count for performance
-      if (particles.current.length > 100) {
-        particles.current = particles.current.slice(-80);
-      }
-    }, []);
+    };
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -128,17 +133,17 @@ const CursorBackground: React.FC = () => {
 
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', throttledMouseMove);
     animate();
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mousemove', throttledMouseMove);
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, []);
+  }, [handleMouseMove]);
 
   return (
     <canvas
