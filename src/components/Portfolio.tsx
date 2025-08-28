@@ -97,7 +97,7 @@ const Portfolio: React.FC = () => {
               <div className="w-32 h-32 lg:w-40 lg:h-40 rounded-full overflow-hidden border-4 border-primary/30 shadow-lg glow-primary hover-lift">
                 <img 
                   src="/src/assets/profile-photo.jpg" 
-                  alt="Treesa Kuriakose" 
+                  alt="Treesa Kuriakose - Full Stack Developer" 
                   className="w-full h-full object-cover"
                 />
               </div>
