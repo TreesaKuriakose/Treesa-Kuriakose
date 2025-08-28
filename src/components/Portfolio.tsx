@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Moon, Sun, Code, Briefcase, GraduationCap, User, Award, Mail, FolderOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import CursorBackground from './CursorBackground';
+import ProfessionalBackground from './ProfessionalBackground';
 import AboutSection from './sections/AboutSection';
 import EducationSection from './sections/EducationSection';
 import ProjectsSection from './sections/ProjectsSection';
@@ -65,7 +66,8 @@ const Portfolio: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background cosmic-bg relative">
+    <div className="min-h-screen bg-background relative">
+      <ProfessionalBackground />
       <CursorBackground />
       
       {/* Header Row with Portfolio title, Navigation, and Theme Toggle */}
@@ -100,7 +102,7 @@ const Portfolio: React.FC = () => {
                         variant="ghost"
                         onClick={() => setActiveTab(tab.id)}
                         className={`
-                          relative z-10 flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-300 w-[100px] justify-center professional-hover
+                          relative z-10 flex flex-col items-center gap-1 px-3 py-2 rounded-lg transition-all duration-300 w-[100px] justify-center professional-hover
                           ${activeTab === tab.id 
                             ? 'text-primary-foreground font-medium' 
                             : 'text-muted-foreground hover:text-foreground hover:bg-accent/20'
@@ -132,11 +134,8 @@ const Portfolio: React.FC = () => {
       {/* Enhanced Main Content */}
       <main className="relative z-10 px-6 pb-20">
         <div className="max-w-7xl mx-auto">
-          <div className="glass-card rounded-2xl p-8 min-h-[600px] animate-fade-in professional-hover">
-            <div className="relative">
-              {renderContent()}
-              <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-primary/5 via-transparent to-primary-glow/5 rounded-2xl"></div>
-            </div>
+          <div className="min-h-[600px] animate-fade-in">
+            {renderContent()}
           </div>
         </div>
       </main>

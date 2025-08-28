@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Github, Linkedin, Mail, ArrowRight, Code2, Users, Award } from 'lucide-react';
 import profilePhoto from '@/assets/profile-photo.jpg';
 
@@ -10,7 +9,7 @@ const AboutSection: React.FC = () => {
       {/* Hero Section */}
       <section className="relative">
         <div className="absolute -inset-2 rounded-lg bg-gradient-cosmic opacity-20 blur-2xl"></div>
-        <Card className="relative glass-card p-8 md:p-12 hover-lift">
+        <div className="relative p-8 md:p-12">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="space-y-6">
               {/* Tech Stack Pills */}
@@ -102,7 +101,7 @@ const AboutSection: React.FC = () => {
               </div>
             </div>
           </div>
-        </Card>
+        </div>
       </section>
 
       {/* About Me Details */}
@@ -113,7 +112,7 @@ const AboutSection: React.FC = () => {
           </span>
         </h2>
         
-        <Card className="glass-card p-8 hover-lift">
+        <div className="p-8">
           <div className="prose prose-lg max-w-none text-muted-foreground">
             <p className="leading-relaxed">
               I'm a passionate Computer Science student currently pursuing my degree at St Joseph's College of 
@@ -127,7 +126,7 @@ const AboutSection: React.FC = () => {
               or learning about data structures and algorithms.
             </p>
           </div>
-        </Card>
+        </div>
       </section>
 
       {/* Skills Overview */}
@@ -143,7 +142,7 @@ const AboutSection: React.FC = () => {
 
         <div className="grid md:grid-cols-3 gap-6">
           {/* Technical Skills */}
-          <Card className="glass-card p-6 hover-lift">
+          <div className="p-6">
             <div className="space-y-4">
               <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center">
                 <Code2 className="w-6 h-6 text-primary-foreground" />
@@ -156,10 +155,10 @@ const AboutSection: React.FC = () => {
                 Learn more <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </div>
-          </Card>
+          </div>
 
           {/* Work Experience */}
-          <Card className="glass-card p-6 hover-lift">
+          <div className="p-6">
             <div className="space-y-4">
               <div className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center">
                 <Users className="w-6 h-6 text-primary-foreground" />
@@ -172,10 +171,10 @@ const AboutSection: React.FC = () => {
                 Learn more <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </div>
-          </Card>
+          </div>
 
           {/* Education & Certifications */}
-          <Card className="glass-card p-6 hover-lift">
+          <div className="p-6">
             <div className="space-y-4">
               <div className="w-12 h-12 bg-gradient-cosmic rounded-lg flex items-center justify-center">
                 <Award className="w-6 h-6 text-primary-foreground" />
@@ -188,7 +187,7 @@ const AboutSection: React.FC = () => {
                 Learn more <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </div>
-          </Card>
+          </div>
         </div>
       </section>
     </div>
