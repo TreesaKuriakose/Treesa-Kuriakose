@@ -83,16 +83,8 @@ const CursorBackground: React.FC = () => {
         const size = particle.size * alpha;
         
         if (alpha > 0.1) {
-          // Create sophisticated gradient for particles
-          const gradient = ctx.createRadialGradient(
-            particle.x, particle.y, 0,
-            particle.x, particle.y, size * 4
-          );
-          gradient.addColorStop(0, `hsla(259, 94%, 51%, ${alpha * 0.9})`);
-          gradient.addColorStop(0.4, `hsla(266, 83%, 58%, ${alpha * 0.6})`);
-          gradient.addColorStop(1, `hsla(217, 91%, 60%, ${alpha * 0.2})`);
-          
-          ctx.fillStyle = gradient;
+          // Simple white dot
+          ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.8})`;
           ctx.beginPath();
           ctx.arc(particle.x, particle.y, size, 0, Math.PI * 2);
           ctx.fill();
@@ -101,32 +93,7 @@ const CursorBackground: React.FC = () => {
         return particle.life < particle.maxLife;
       });
 
-      // Draw elegant connecting lines between nearby particles
-      const maxConnections = 50; // Limit connections for performance
-      let connectionCount = 0;
-      
-      for (let i = 0; i < particles.current.length && connectionCount < maxConnections; i++) {
-        for (let j = i + 1; j < particles.current.length && connectionCount < maxConnections; j++) {
-          const p1 = particles.current[i];
-          const p2 = particles.current[j];
-          const distance = Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
-          
-          if (distance < 80) {
-            const alpha = (1 - distance / 80) * 0.4;
-            const gradient = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
-            gradient.addColorStop(0, `hsla(259, 94%, 51%, ${alpha})`);
-            gradient.addColorStop(1, `hsla(266, 83%, 58%, ${alpha * 0.5})`);
-            
-            ctx.strokeStyle = gradient;
-            ctx.lineWidth = alpha * 2;
-            ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.stroke();
-            connectionCount++;
-          }
-        }
-      }
+      // Remove connecting lines - keep only white dots
 
       animationRef.current = requestAnimationFrame(animate);
     };
