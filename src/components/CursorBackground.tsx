@@ -85,10 +85,8 @@ const CursorBackground: React.FC = () => {
         const size = particle.size * alpha;
         
         if (alpha > 0.1) {
-          // Dynamic particle color based on theme
-          const isDarkMode = document.documentElement.classList.contains('dark');
-          const particleColor = isDarkMode ? '255, 255, 255' : '100, 100, 100'; // White in dark, dark gray in light
-          ctx.fillStyle = `rgba(${particleColor}, ${alpha * 0.8})`;
+          // Simple white dot
+          ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.8})`;
           ctx.beginPath();
           ctx.arc(particle.x, particle.y, size, 0, Math.PI * 2);
           ctx.fill();
@@ -97,17 +95,17 @@ const CursorBackground: React.FC = () => {
         return particle.life < particle.maxLife;
       });
 
-      // Draw purple cursor effect following the actual mouse cursor
-      if (mouseRef.current.isMoving) {
-        const mouseX = cursorRef.current.x;
-        const mouseY = cursorRef.current.y;
+      // Draw purple cursor effect following the most recent white particle
+      const recentParticles = particles.current.slice(-3).filter(p => p.life < 10);
+      if (recentParticles.length > 0) {
+        const targetParticle = recentParticles[recentParticles.length - 1];
         
-        // Purple glow effect at cursor position
+        // Purple glow effect at white particle position
         ctx.beginPath();
-        ctx.arc(mouseX, mouseY, 8, 0, Math.PI * 2);
+        ctx.arc(targetParticle.x, targetParticle.y, 8, 0, Math.PI * 2);
         const gradient = ctx.createRadialGradient(
-          mouseX, mouseY, 0,
-          mouseX, mouseY, 8
+          targetParticle.x, targetParticle.y, 0,
+          targetParticle.x, targetParticle.y, 8
         );
         gradient.addColorStop(0, `rgba(168, 85, 247, 0.8)`);
         gradient.addColorStop(0.5, `rgba(168, 85, 247, 0.4)`);
@@ -117,7 +115,7 @@ const CursorBackground: React.FC = () => {
         
         // Inner purple dot
         ctx.beginPath();
-        ctx.arc(mouseX, mouseY, 3, 0, Math.PI * 2);
+        ctx.arc(targetParticle.x, targetParticle.y, 3, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(168, 85, 247, 1)`;
         ctx.fill();
       }
