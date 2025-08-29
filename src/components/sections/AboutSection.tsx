@@ -1,98 +1,103 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Github, Linkedin, Mail, ArrowRight, Code, Briefcase, GraduationCap } from 'lucide-react';
+import { Github, Linkedin, Mail, ArrowRight, Code2, Users, Award } from 'lucide-react';
 import profilePhoto from '@/assets/profile-photo.jpg';
 
 const AboutSection: React.FC = () => {
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* Hero Section */}
-      <section className="animate-fade-in">
-        <div className="bg-card/50 dark:bg-card/30 backdrop-blur-sm rounded-2xl p-8 border border-border/20 shadow-lg hover:shadow-xl transition-all duration-500">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
+      <section className="relative">
+        <div className="absolute -inset-2 rounded-lg bg-gradient-cosmic opacity-20 blur-2xl"></div>
+        <div className="relative p-8 md:p-12">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="space-y-6">
               {/* Tech Stack Pills */}
-              <div className="flex flex-wrap gap-2 mb-6">
+              <div className="flex flex-wrap gap-2 mb-4">
                 {['TypeScript', 'React', 'NextJS', 'Python'].map((tech) => (
-                  <span 
+                  <span
                     key={tech}
-                    className="px-4 py-2 bg-primary/10 dark:bg-primary/20 text-primary rounded-full text-sm font-medium border border-primary/20 hover:bg-primary/20 dark:hover:bg-primary/30 transition-all duration-300"
+                    className="px-3 py-1 text-xs rounded-full bg-accent/20 text-accent-foreground border border-accent/30"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
 
-              {/* Main Content */}
               <div className="space-y-4">
-                <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent leading-tight">
-                  Daiji Kuriakose
+                <h1 className="text-4xl md:text-6xl font-bold">
+                  <span className="bg-gradient-primary bg-clip-text text-transparent">
+                    Treesa Kuriakose
+                  </span>
                 </h1>
-                <p className="text-xl text-muted-foreground font-medium">
-                  Student, Full Stack Developer
+                <p className="text-xl text-muted-foreground">
+                  Student, Frontend Developer
                 </p>
-                <p className="text-foreground/80 leading-relaxed max-w-lg">
-                  Exploring Full Stack Development | B Tech Computer Science Student at St Joseph's College of Engineering and Technology
+                <p className="text-muted-foreground leading-relaxed">
+                  Exploring Full Stack Development | Learning DSA in C++ | 
+                  Computer Science Student at St Joseph's College of 
+                  Engineering and Technology
                 </p>
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex items-center gap-4 pt-4">
-                <Button 
-                  className="btn-professional bg-gradient-to-r from-primary to-primary-glow hover:from-primary-glow hover:to-primary text-primary-foreground font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-                >
+              <div className="flex gap-4">
+                <Button className="bg-gradient-primary hover:opacity-90 glow-primary">
                   Get in Touch
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
-                <Button variant="outline" className="rounded-xl border-2 hover:bg-accent/50 transition-all duration-300 hover:scale-105">
+                <Button variant="outline" className="glass-card">
                   About Me
                 </Button>
               </div>
 
               {/* Social Links */}
-              <div className="flex items-center gap-3 pt-2">
-                <Button variant="ghost" size="icon" className="rounded-xl bg-card hover:bg-accent transition-all duration-300 hover:scale-110 border border-border/50">
-                  <Github className="h-5 w-5" />
+              <div className="flex gap-4 pt-4">
+                <Button variant="outline" size="icon" className="glass-card hover-lift">
+                  <Github className="w-4 h-4" />
                 </Button>
-                <Button variant="ghost" size="icon" className="rounded-xl bg-card hover:bg-accent transition-all duration-300 hover:scale-110 border border-border/50">
-                  <Linkedin className="h-5 w-5" />
+                <Button variant="outline" size="icon" className="glass-card hover-lift">
+                  <Linkedin className="w-4 h-4" />
                 </Button>
-                <Button variant="ghost" size="icon" className="rounded-xl bg-card hover:bg-accent transition-all duration-300 hover:scale-110 border border-border/50">
-                  <Mail className="h-5 w-5" />
+                <Button variant="outline" size="icon" className="glass-card hover-lift">
+                  <Mail className="w-4 h-4" />
                 </Button>
               </div>
             </div>
 
-            {/* Right Content - Profile */}
-            <div className="flex justify-center lg:justify-end">
+            <div className="flex justify-center">
               <div className="relative">
-                {/* Profile Image Container */}
-                <div className="relative w-80 h-80 rounded-3xl overflow-hidden border-4 border-primary/20 shadow-2xl hover:shadow-primary/25 transition-all duration-500 hover:scale-105">
-                  <img 
-                    src={profilePhoto} 
-                    alt="Daiji Kuriakose - Full Stack Developer" 
-                    className="w-full h-full object-cover"
+                <div className="absolute -inset-4 bg-gradient-primary rounded-full opacity-20 blur-xl"></div>
+                <div className="relative w-64 h-64 rounded-full bg-gradient-secondary p-1">
+                <img
+                    src={profilePhoto}
+                    alt="Treesa Kuriakose"
+                    className="w-full h-full rounded-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent"></div>
                 </div>
+                <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 flex items-center gap-2 bg-background/80 backdrop-blur-sm px-4 py-2 rounded-full border border-border/30">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-sm text-muted-foreground">Available for projects</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
-                {/* Status Badge */}
-                <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg flex items-center gap-2">
-                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                    Available for projects
-                  </div>
-                </div>
-
-                {/* Code Snippet */}
-                <div className="absolute -right-8 top-1/2 transform -translate-y-1/2 hidden xl:block">
-                  <div className="bg-card/90 dark:bg-card/70 backdrop-blur-sm rounded-lg p-4 border border-border/30 shadow-lg font-mono text-sm max-w-xs">
-                    <div className="text-muted-foreground mb-1">// Developer.js</div>
-                    <div className="text-primary">const me = new Developer();</div>
-                    <div className="text-foreground mt-2">while (true) me.learn();</div>
-                  </div>
-                </div>
+          {/* Code Snippet */}
+          <div className="mt-16 mx-auto max-w-md">
+            <div className="p-6 bg-muted/30 rounded-lg border border-accent/20 font-mono">
+              <div className="text-sm">
+                <span className="text-purple-400">const</span>{' '}
+                <span className="text-blue-300">developer</span>{' '}
+                <span className="text-white">=</span>{' '}
+                <span className="text-yellow-300">new</span>{' '}
+                <span className="text-green-300">Developer</span>
+                <span className="text-white">();</span>
+                <br />
+                <span className="text-purple-400">await</span>{' '}
+                <span className="text-blue-300">skills</span>
+                <span className="text-white">.</span>
+                <span className="text-yellow-300">improve</span>
+                <span className="text-white">();</span>
               </div>
             </div>
           </div>
@@ -100,92 +105,87 @@ const AboutSection: React.FC = () => {
       </section>
 
       {/* About Me Details */}
-      <section className="animate-fade-in">
-        <div className="bg-card/50 dark:bg-card/30 backdrop-blur-sm rounded-2xl p-8 border border-border/20 shadow-lg hover:shadow-xl transition-all duration-500">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
-              About Me
-            </h2>
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div className="space-y-4">
-                <p className="text-foreground/80 leading-relaxed">
-                  I'm a passionate full-stack developer and computer science student with a love for creating 
-                  innovative web solutions. My journey in technology has led me to explore various frameworks 
-                  and technologies, always eager to learn and implement the latest industry practices.
-                </p>
-                <p className="text-foreground/80 leading-relaxed">
-                  When I'm not coding, you can find me exploring new technologies, contributing to open-source 
-                  projects, or sharing my knowledge with fellow developers in the community.
-                </p>
-              </div>
-              <div className="bg-gradient-to-br from-primary/5 to-primary-glow/5 rounded-xl p-6 border border-primary/10">
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    <span className="text-sm text-foreground/70">Currently learning</span>
-                  </div>
-                  <p className="font-medium text-foreground">Advanced React Patterns & Cloud Architecture</p>
-                </div>
-              </div>
-            </div>
+      <section className="space-y-8">
+        <h2 className="text-3xl font-bold text-center">
+          <span className="bg-gradient-primary bg-clip-text text-transparent">
+            About Me
+          </span>
+        </h2>
+        
+        <div className="p-8">
+          <div className="prose prose-lg max-w-none text-muted-foreground">
+            <p className="leading-relaxed">
+              I'm a passionate Computer Science student currently pursuing my degree at St Joseph's College of 
+              Engineering and Technology. My journey in technology began with curiosity about how things work 
+              behind the scenes, and it has evolved into a deep passion for creating meaningful digital experiences.
+            </p>
+            <p className="leading-relaxed">
+              Currently, I'm focusing on full-stack development with modern technologies like React, TypeScript, 
+              and Python. I enjoy solving complex problems and turning ideas into reality through code. 
+              When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, 
+              or learning about data structures and algorithms.
+            </p>
           </div>
         </div>
       </section>
 
       {/* Skills Overview */}
-      <section className="animate-fade-in">
+      <section className="space-y-8">
+        <h2 className="text-3xl font-bold text-center">
+          <span className="bg-gradient-primary bg-clip-text text-transparent">
+            Skills Overview
+          </span>
+        </h2>
+        <p className="text-center text-muted-foreground">
+          A glimpse into my technical expertise and professional capabilities
+        </p>
+
         <div className="grid md:grid-cols-3 gap-6">
           {/* Technical Skills */}
-          <div className="bg-card/50 dark:bg-card/30 backdrop-blur-sm rounded-2xl p-6 border border-border/20 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105">
-            <div className="flex items-start gap-4">
-              <div className="p-3 bg-gradient-to-br from-blue-500/10 to-blue-600/10 rounded-xl">
-                <Code className="h-6 w-6 text-blue-500" />
+          <div className="p-6">
+            <div className="space-y-4">
+              <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center">
+                <Code2 className="w-6 h-6 text-primary-foreground" />
               </div>
-              <div className="flex-1">
-                <h3 className="text-xl font-semibold mb-2 text-foreground">Technical Skills</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Proficient in modern web technologies and frameworks
-                </p>
-                <Button variant="ghost" className="text-blue-500 hover:text-blue-600 p-0 h-auto">
-                  Learn more <ArrowRight className="ml-1 h-3 w-3" />
-                </Button>
-              </div>
+              <h3 className="text-xl font-semibold">Technical Skills</h3>
+              <p className="text-muted-foreground">
+                Expertise in modern web technologies, frameworks, and tools for building robust applications.
+              </p>
+              <Button variant="link" className="p-0 h-auto text-primary">
+                Learn more <ArrowRight className="w-4 h-4 ml-1" />
+              </Button>
             </div>
           </div>
 
           {/* Work Experience */}
-          <div className="bg-card/50 dark:bg-card/30 backdrop-blur-sm rounded-2xl p-6 border border-border/20 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105">
-            <div className="flex items-start gap-4">
-              <div className="p-3 bg-gradient-to-br from-green-500/10 to-green-600/10 rounded-xl">
-                <Briefcase className="h-6 w-6 text-green-500" />
+          <div className="p-6">
+            <div className="space-y-4">
+              <div className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center">
+                <Users className="w-6 h-6 text-primary-foreground" />
               </div>
-              <div className="flex-1">
-                <h3 className="text-xl font-semibold mb-2 text-foreground">Work Experience</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Hands-on experience in full-stack development projects
-                </p>
-                <Button variant="ghost" className="text-green-500 hover:text-green-600 p-0 h-auto">
-                  Learn more <ArrowRight className="ml-1 h-3 w-3" />
-                </Button>
-              </div>
+              <h3 className="text-xl font-semibold">Work Experience</h3>
+              <p className="text-muted-foreground">
+                Professional journey across various roles and organizations, showcasing practical expertise.
+              </p>
+              <Button variant="link" className="p-0 h-auto text-primary">
+                Learn more <ArrowRight className="w-4 h-4 ml-1" />
+              </Button>
             </div>
           </div>
 
           {/* Education & Certifications */}
-          <div className="bg-card/50 dark:bg-card/30 backdrop-blur-sm rounded-2xl p-6 border border-border/20 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105">
-            <div className="flex items-start gap-4">
-              <div className="p-3 bg-gradient-to-br from-purple-500/10 to-purple-600/10 rounded-xl">
-                <GraduationCap className="h-6 w-6 text-purple-500" />
+          <div className="p-6">
+            <div className="space-y-4">
+              <div className="w-12 h-12 bg-gradient-cosmic rounded-lg flex items-center justify-center">
+                <Award className="w-6 h-6 text-primary-foreground" />
               </div>
-              <div className="flex-1">
-                <h3 className="text-xl font-semibold mb-2 text-foreground">Education & Certifications</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Computer Science education with industry certifications
-                </p>
-                <Button variant="ghost" className="text-purple-500 hover:text-purple-600 p-0 h-auto">
-                  Learn more <ArrowRight className="ml-1 h-3 w-3" />
-                </Button>
-              </div>
+              <h3 className="text-xl font-semibold">Education & Certifications</h3>
+              <p className="text-muted-foreground">
+                Academic qualifications and professional certifications that form the foundation of my expertise.
+              </p>
+              <Button variant="link" className="p-0 h-auto text-primary">
+                Learn more <ArrowRight className="w-4 h-4 ml-1" />
+              </Button>
             </div>
           </div>
         </div>
