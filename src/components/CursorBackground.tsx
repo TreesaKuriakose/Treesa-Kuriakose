@@ -95,27 +95,28 @@ const CursorBackground: React.FC = () => {
         return particle.life < particle.maxLife;
       });
 
-      // Draw purple cursor effect at mouse position
-      if (mouseRef.current.isMoving || Date.now() - lastMoveTime.current < 1000) {
-        const cursorAlpha = Math.max(0.3, 1 - (Date.now() - lastMoveTime.current) / 1000);
+      // Draw purple cursor effect following the most recent white particle
+      const recentParticles = particles.current.slice(-3).filter(p => p.life < 10);
+      if (recentParticles.length > 0) {
+        const targetParticle = recentParticles[recentParticles.length - 1];
         
-        // Purple glow effect
+        // Purple glow effect at white particle position
         ctx.beginPath();
-        ctx.arc(cursorRef.current.x, cursorRef.current.y, 12, 0, Math.PI * 2);
+        ctx.arc(targetParticle.x, targetParticle.y, 8, 0, Math.PI * 2);
         const gradient = ctx.createRadialGradient(
-          cursorRef.current.x, cursorRef.current.y, 0,
-          cursorRef.current.x, cursorRef.current.y, 12
+          targetParticle.x, targetParticle.y, 0,
+          targetParticle.x, targetParticle.y, 8
         );
-        gradient.addColorStop(0, `rgba(168, 85, 247, ${cursorAlpha * 0.6})`);
-        gradient.addColorStop(0.5, `rgba(168, 85, 247, ${cursorAlpha * 0.3})`);
+        gradient.addColorStop(0, `rgba(168, 85, 247, 0.8)`);
+        gradient.addColorStop(0.5, `rgba(168, 85, 247, 0.4)`);
         gradient.addColorStop(1, `rgba(168, 85, 247, 0)`);
         ctx.fillStyle = gradient;
         ctx.fill();
         
         // Inner purple dot
         ctx.beginPath();
-        ctx.arc(cursorRef.current.x, cursorRef.current.y, 4, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(168, 85, 247, ${cursorAlpha * 0.8})`;
+        ctx.arc(targetParticle.x, targetParticle.y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(168, 85, 247, 1)`;
         ctx.fill();
       }
 
