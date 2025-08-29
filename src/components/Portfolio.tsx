@@ -81,12 +81,12 @@ const Portfolio: React.FC = () => {
                 </h1>
                 
                 {/* Navigation Tabs - Centered */}
-                <nav className="flex gap-1 relative justify-center flex-1 max-w-4xl mx-auto">
+<nav className="flex gap-0 relative justify-center flex-1 max-w-4xl mx-auto">
                   {/* Enhanced sliding background indicator */}
                   <div 
                     className="absolute top-0 bottom-0 rounded-lg transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden shadow-lg"
                     style={{
-                      left: `calc(${tabs.findIndex(tab => tab.id === activeTab) * 110}px)`,
+                      left: `${tabs.findIndex(tab => tab.id === activeTab) * 110}px`,
                       width: `110px`,
                       background: 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)))',
                       boxShadow: '0 0 25px hsl(var(--primary) / 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)'

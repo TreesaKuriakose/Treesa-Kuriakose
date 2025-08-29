@@ -16,11 +16,13 @@ const CursorBackground: React.FC = () => {
   const mouseRef = useRef({ x: 0, y: 0, isMoving: false });
   const animationRef = useRef<number>();
   const lastMoveTime = useRef<number>(0);
+  const cursorRef = useRef({ x: 0, y: 0 });
 
   // Move useCallback outside of useEffect
   const handleMouseMove = useCallback((e: MouseEvent) => {
     const now = Date.now();
     mouseRef.current = { x: e.clientX, y: e.clientY, isMoving: true };
+    cursorRef.current = { x: e.clientX, y: e.clientY };
     lastMoveTime.current = now;
     
     // Create fewer, higher quality particles
@@ -93,7 +95,29 @@ const CursorBackground: React.FC = () => {
         return particle.life < particle.maxLife;
       });
 
-      // Remove connecting lines - keep only white dots
+      // Draw purple cursor effect at mouse position
+      if (mouseRef.current.isMoving || Date.now() - lastMoveTime.current < 1000) {
+        const cursorAlpha = Math.max(0.3, 1 - (Date.now() - lastMoveTime.current) / 1000);
+        
+        // Purple glow effect
+        ctx.beginPath();
+        ctx.arc(cursorRef.current.x, cursorRef.current.y, 12, 0, Math.PI * 2);
+        const gradient = ctx.createRadialGradient(
+          cursorRef.current.x, cursorRef.current.y, 0,
+          cursorRef.current.x, cursorRef.current.y, 12
+        );
+        gradient.addColorStop(0, `rgba(168, 85, 247, ${cursorAlpha * 0.6})`);
+        gradient.addColorStop(0.5, `rgba(168, 85, 247, ${cursorAlpha * 0.3})`);
+        gradient.addColorStop(1, `rgba(168, 85, 247, 0)`);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+        
+        // Inner purple dot
+        ctx.beginPath();
+        ctx.arc(cursorRef.current.x, cursorRef.current.y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(168, 85, 247, ${cursorAlpha * 0.8})`;
+        ctx.fill();
+      }
 
       animationRef.current = requestAnimationFrame(animate);
     };
