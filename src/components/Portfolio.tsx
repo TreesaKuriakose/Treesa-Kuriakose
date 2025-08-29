@@ -80,19 +80,19 @@ const Portfolio: React.FC = () => {
                   Portfolio
                 </h1>
                 
-                {/* Navigation Tabs */}
-                <nav className="flex gap-1 relative">
+                {/* Navigation Tabs - Centered */}
+                <nav className="flex gap-1 relative justify-center flex-1 max-w-4xl mx-auto">
                   {/* Enhanced sliding background indicator */}
                   <div 
-                    className="absolute top-0 bottom-0 rounded-lg transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden"
+                    className="absolute top-0 bottom-0 rounded-lg transition-all duration-[600ms] ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden shadow-lg"
                     style={{
-                      left: `calc(${tabs.findIndex(tab => tab.id === activeTab) * 100}px)`,
-                      width: `100px`,
+                      left: `calc(${tabs.findIndex(tab => tab.id === activeTab) * 110}px)`,
+                      width: `110px`,
                       background: 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)))',
-                      boxShadow: '0 0 20px hsl(var(--primary) / 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+                      boxShadow: '0 0 25px hsl(var(--primary) / 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15)'
                     }}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent animate-pulse"></div>
                   </div>
                   {tabs.map((tab, index) => {
                     const Icon = tab.icon;
@@ -102,15 +102,25 @@ const Portfolio: React.FC = () => {
                         variant="ghost"
                         onClick={() => setActiveTab(tab.id)}
                         className={`
-                          relative z-10 flex flex-col items-center gap-1 px-3 py-2 rounded-lg transition-all duration-300 w-[100px] justify-center professional-hover
+                          relative z-10 flex flex-col items-center justify-center gap-1 px-4 py-2 rounded-lg 
+                          transition-all duration-300 w-[110px] h-[60px] group
                           ${activeTab === tab.id 
-                            ? 'text-primary-foreground font-medium' 
-                            : 'text-muted-foreground hover:text-foreground hover:bg-accent/20'
+                            ? 'text-primary-foreground font-semibold transform scale-105' 
+                            : 'text-muted-foreground hover:text-foreground hover:bg-accent/20 hover:scale-102'
                           }
                         `}
+                        style={{
+                          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                        }}
                       >
-                        <Icon className="w-4 h-4" />
-                        <span className="text-sm font-medium">{tab.label}</span>
+                        <Icon className={`w-4 h-4 transition-transform duration-300 ${
+                          activeTab === tab.id ? 'scale-110' : 'group-hover:scale-105'
+                        }`} />
+                        <span className={`text-xs font-medium text-center leading-tight ${
+                          activeTab === tab.id ? 'font-semibold' : ''
+                        }`}>
+                          {tab.label}
+                        </span>
                       </Button>
                     );
                   })}
