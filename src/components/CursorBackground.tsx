@@ -89,11 +89,24 @@ const CursorBackground: React.FC = () => {
         const size = particle.size * alpha;
         
         if (alpha > 0.1) {
-          // Adjust particle color based on theme
-          const particleColor = isDark ? '255, 255, 255' : '100, 100, 100';
-          ctx.fillStyle = `rgba(${particleColor}, ${alpha * 0.8})`;
+          // Better particle visibility - brighter in light mode, white in dark mode
+          if (isDark) {
+            ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.9})`;
+          } else {
+            ctx.fillStyle = `rgba(80, 80, 80, ${alpha * 0.8})`; // Darker gray for light mode
+          }
           ctx.beginPath();
           ctx.arc(particle.x, particle.y, size, 0, Math.PI * 2);
+          ctx.fill();
+          
+          // Add subtle glow for better visibility
+          ctx.beginPath();
+          ctx.arc(particle.x, particle.y, size * 1.5, 0, Math.PI * 2);
+          if (isDark) {
+            ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.3})`;
+          } else {
+            ctx.fillStyle = `rgba(80, 80, 80, ${alpha * 0.2})`;
+          }
           ctx.fill();
         }
         
@@ -102,12 +115,12 @@ const CursorBackground: React.FC = () => {
 
       // Draw purple cursor effect that follows and sticks to white particles
       if (mouseRef.current.isMoving || Date.now() - lastMoveTime.current < 1000) {
-        const cursorAlpha = Math.max(0.4, 1 - (Date.now() - lastMoveTime.current) / 1000);
+        const cursorAlpha = Math.max(0.6, 1 - (Date.now() - lastMoveTime.current) / 1000);
         
-        // Find the nearest particle to cursor
+        // Find the nearest particle to cursor with immediate response
         let nearestParticle = null;
         let minDistance = Infinity;
-        const snapDistance = 80; // Increased snap distance
+        const snapDistance = 60; // Optimized snap distance
         
         particles.current.forEach(particle => {
           const distance = Math.sqrt(
@@ -120,40 +133,54 @@ const CursorBackground: React.FC = () => {
           }
         });
         
-        // Update target position - snap to particle or follow mouse
+        // Immediate position update - no lag
+        let targetX, targetY;
         if (nearestParticle) {
-          targetCursorRef.current.x = nearestParticle.x;
-          targetCursorRef.current.y = nearestParticle.y;
+          targetX = nearestParticle.x;
+          targetY = nearestParticle.y;
         } else {
-          targetCursorRef.current.x = cursorRef.current.x;
-          targetCursorRef.current.y = cursorRef.current.y;
+          targetX = cursorRef.current.x;
+          targetY = cursorRef.current.y;
         }
         
-        // Purple glow effect at target position
+        // Enhanced purple glow effect with better visibility
         ctx.beginPath();
-        ctx.arc(targetCursorRef.current.x, targetCursorRef.current.y, 12, 0, Math.PI * 2);
+        ctx.arc(targetX, targetY, 14, 0, Math.PI * 2);
         const gradient = ctx.createRadialGradient(
-          targetCursorRef.current.x, targetCursorRef.current.y, 0,
-          targetCursorRef.current.x, targetCursorRef.current.y, 12
+          targetX, targetY, 0,
+          targetX, targetY, 14
         );
-        gradient.addColorStop(0, `rgba(168, 85, 247, ${cursorAlpha * 0.6})`);
-        gradient.addColorStop(0.5, `rgba(168, 85, 247, ${cursorAlpha * 0.3})`);
+        gradient.addColorStop(0, `rgba(168, 85, 247, ${cursorAlpha * 0.8})`);
+        gradient.addColorStop(0.4, `rgba(168, 85, 247, ${cursorAlpha * 0.5})`);
         gradient.addColorStop(1, `rgba(168, 85, 247, 0)`);
         ctx.fillStyle = gradient;
         ctx.fill();
         
-        // Inner purple dot that sticks to particles
+        // Main purple dot - more visible
         ctx.beginPath();
-        ctx.arc(targetCursorRef.current.x, targetCursorRef.current.y, 4, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(168, 85, 247, ${cursorAlpha * 0.9})`;
+        ctx.arc(targetX, targetY, 5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(168, 85, 247, ${cursorAlpha})`;
         ctx.fill();
         
-        // Add a bright white center when locked to particle
+        // Bright white center for better visibility in all modes
+        ctx.beginPath();
+        ctx.arc(targetX, targetY, 2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${cursorAlpha * 0.9})`;
+        ctx.fill();
+        
+        // Extra bright center dot when locked to particle
         if (nearestParticle) {
           ctx.beginPath();
-          ctx.arc(targetCursorRef.current.x, targetCursorRef.current.y, 1.5, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255, 255, 255, ${cursorAlpha * 0.8})`;
+          ctx.arc(targetX, targetY, 1, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 255, 255, 1)`;
           ctx.fill();
+          
+          // Add a subtle ring to show connection
+          ctx.beginPath();
+          ctx.arc(targetX, targetY, 8, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(168, 85, 247, ${cursorAlpha * 0.3})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
         }
       }
 
