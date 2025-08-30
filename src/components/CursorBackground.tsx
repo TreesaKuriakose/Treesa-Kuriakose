@@ -117,10 +117,10 @@ const CursorBackground: React.FC = () => {
       if (mouseRef.current.isMoving || Date.now() - lastMoveTime.current < 1000) {
         const cursorAlpha = Math.max(0.6, 1 - (Date.now() - lastMoveTime.current) / 1000);
         
-        // Find the nearest particle to cursor with immediate response
+        // Find the nearest particle to cursor with aggressive snapping
         let nearestParticle = null;
         let minDistance = Infinity;
-        const snapDistance = 60; // Optimized snap distance
+        const snapDistance = 100; // Increased snap distance for better targeting
         
         particles.current.forEach(particle => {
           const distance = Math.sqrt(
@@ -133,11 +133,15 @@ const CursorBackground: React.FC = () => {
           }
         });
         
-        // Immediate position update - no lag
+        // Immediate position update with aggressive snapping - ZERO lag
         let targetX, targetY;
-        if (nearestParticle) {
+        if (nearestParticle && minDistance < 80) {
+          // When locked to particle, cursor position = particle position exactly
           targetX = nearestParticle.x;
           targetY = nearestParticle.y;
+          // Make particle more stable when cursor is locked to it
+          nearestParticle.vx *= 0.8;
+          nearestParticle.vy *= 0.8;
         } else {
           targetX = cursorRef.current.x;
           targetY = cursorRef.current.y;
