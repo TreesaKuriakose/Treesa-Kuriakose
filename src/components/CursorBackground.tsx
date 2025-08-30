@@ -17,6 +17,7 @@ const CursorBackground: React.FC = () => {
   const animationRef = useRef<number>();
   const lastMoveTime = useRef<number>(0);
   const cursorRef = useRef({ x: 0, y: 0 });
+  const targetCursorRef = useRef({ x: 0, y: 0 }); // For smooth following
 
   // Move useCallback outside of useEffect
   const handleMouseMove = useCallback((e: MouseEvent) => {
@@ -69,87 +70,95 @@ const CursorBackground: React.FC = () => {
       }, 150);
     };
 
-  const animate = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    // Check if we're in dark mode
-    const isDark = document.documentElement.classList.contains('dark');
-    
-    // Update and draw particles with improved performance
-    particles.current = particles.current.filter(particle => {
-      // Apply subtle physics
-      particle.vx *= 0.99;
-      particle.vy *= 0.99;
-      particle.x += particle.vx;
-      particle.y += particle.vy;
-      particle.life++;
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      const alpha = Math.max(0, 1 - particle.life / particle.maxLife);
-      const size = particle.size * alpha;
+      // Check if we're in dark mode
+      const isDark = document.documentElement.classList.contains('dark');
       
-      if (alpha > 0.1) {
-        // Adjust particle color based on theme
-        const particleColor = isDark ? '255, 255, 255' : '100, 100, 100';
-        ctx.fillStyle = `rgba(${particleColor}, ${alpha * 0.8})`;
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      
-      return particle.life < particle.maxLife;
-    });
+      // Update and draw particles with improved performance
+      particles.current = particles.current.filter(particle => {
+        // Apply subtle physics
+        particle.vx *= 0.99;
+        particle.vy *= 0.99;
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        particle.life++;
+        
+        const alpha = Math.max(0, 1 - particle.life / particle.maxLife);
+        const size = particle.size * alpha;
+        
+        if (alpha > 0.1) {
+          // Adjust particle color based on theme
+          const particleColor = isDark ? '255, 255, 255' : '100, 100, 100';
+          ctx.fillStyle = `rgba(${particleColor}, ${alpha * 0.8})`;
+          ctx.beginPath();
+          ctx.arc(particle.x, particle.y, size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        
+        return particle.life < particle.maxLife;
+      });
 
-    // Draw purple cursor effect that follows the nearest particle or mouse
-    if (mouseRef.current.isMoving || Date.now() - lastMoveTime.current < 1000) {
-      const cursorAlpha = Math.max(0.4, 1 - (Date.now() - lastMoveTime.current) / 1000);
-      
-      // Find the nearest particle to cursor
-      let targetX = cursorRef.current.x;
-      let targetY = cursorRef.current.y;
-      
-      if (particles.current.length > 0) {
-        let minDistance = Infinity;
+      // Draw purple cursor effect that follows and sticks to white particles
+      if (mouseRef.current.isMoving || Date.now() - lastMoveTime.current < 1000) {
+        const cursorAlpha = Math.max(0.4, 1 - (Date.now() - lastMoveTime.current) / 1000);
+        
+        // Find the nearest particle to cursor
         let nearestParticle = null;
+        let minDistance = Infinity;
+        const snapDistance = 80; // Increased snap distance
         
         particles.current.forEach(particle => {
           const distance = Math.sqrt(
             Math.pow(particle.x - cursorRef.current.x, 2) + 
             Math.pow(particle.y - cursorRef.current.y, 2)
           );
-          if (distance < minDistance && distance < 50) { // Only snap if within 50px
+          if (distance < minDistance && distance < snapDistance) {
             minDistance = distance;
             nearestParticle = particle;
           }
         });
         
+        // Update target position - snap to particle or follow mouse
         if (nearestParticle) {
-          targetX = nearestParticle.x;
-          targetY = nearestParticle.y;
+          targetCursorRef.current.x = nearestParticle.x;
+          targetCursorRef.current.y = nearestParticle.y;
+        } else {
+          targetCursorRef.current.x = cursorRef.current.x;
+          targetCursorRef.current.y = cursorRef.current.y;
+        }
+        
+        // Purple glow effect at target position
+        ctx.beginPath();
+        ctx.arc(targetCursorRef.current.x, targetCursorRef.current.y, 12, 0, Math.PI * 2);
+        const gradient = ctx.createRadialGradient(
+          targetCursorRef.current.x, targetCursorRef.current.y, 0,
+          targetCursorRef.current.x, targetCursorRef.current.y, 12
+        );
+        gradient.addColorStop(0, `rgba(168, 85, 247, ${cursorAlpha * 0.6})`);
+        gradient.addColorStop(0.5, `rgba(168, 85, 247, ${cursorAlpha * 0.3})`);
+        gradient.addColorStop(1, `rgba(168, 85, 247, 0)`);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+        
+        // Inner purple dot that sticks to particles
+        ctx.beginPath();
+        ctx.arc(targetCursorRef.current.x, targetCursorRef.current.y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(168, 85, 247, ${cursorAlpha * 0.9})`;
+        ctx.fill();
+        
+        // Add a bright white center when locked to particle
+        if (nearestParticle) {
+          ctx.beginPath();
+          ctx.arc(targetCursorRef.current.x, targetCursorRef.current.y, 1.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 255, 255, ${cursorAlpha * 0.8})`;
+          ctx.fill();
         }
       }
-      
-      // Purple glow effect
-      ctx.beginPath();
-      ctx.arc(targetX, targetY, 12, 0, Math.PI * 2);
-      const gradient = ctx.createRadialGradient(
-        targetX, targetY, 0,
-        targetX, targetY, 12
-      );
-      gradient.addColorStop(0, `rgba(168, 85, 247, ${cursorAlpha * 0.6})`);
-      gradient.addColorStop(0.5, `rgba(168, 85, 247, ${cursorAlpha * 0.3})`);
-      gradient.addColorStop(1, `rgba(168, 85, 247, 0)`);
-      ctx.fillStyle = gradient;
-      ctx.fill();
-      
-      // Inner purple dot that follows particles
-      ctx.beginPath();
-      ctx.arc(targetX, targetY, 4, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(168, 85, 247, ${cursorAlpha * 0.9})`;
-      ctx.fill();
-    }
 
-    animationRef.current = requestAnimationFrame(animate);
-  };
+      animationRef.current = requestAnimationFrame(animate);
+    };
 
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
