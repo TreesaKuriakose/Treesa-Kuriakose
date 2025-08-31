@@ -1,30 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Github, ExternalLink, ChevronDown } from 'lucide-react';
+import { Github, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 
 const ProjectsSection: React.FC = () => {
+  const [expandedFeatures, setExpandedFeatures] = useState<{ [key: string]: boolean }>({});
+  
   const projects = [
     {
+      id: 'portfolio',
       title: 'Portfolio Website',
       description: 'A modern, responsive portfolio website built with React and TypeScript, featuring advanced animations and smooth navigation',
-      image: '/api/placeholder/400/250',
+      image: '/portfolio.jpg',
       technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
-      features: ['Key Features', 'Code', 'Live'],
+      keyFeatures: [
+        'Dynamic Tab Navigation with URL routing',
+        'Custom cursor with trail effects',
+        'Animated background with floating orbs',
+        'Responsive design with glass morphism effects',
+        'Contact form with email integration',
+        'Smooth scrolling animations throughout',
+        'Theme switching capability',
+        'Professional wave footer animations'
+      ],
       links: {
         github: '#',
         live: '#'
       }
     },
     {
-      title: 'SaveSphere',
-      description: 'secure media storage platform for uploading and accessing photos',
-      image: '/api/placeholder/400/250',
-      technologies: ['PostgreSQL', 'Django', 'HTML', 'CSS', 'Python'],
-      features: ['Key Features', 'Code', 'Live'],
+      id: 'ml-5 projects',
+      title: 'ML-5 Projects',
+      description: 'Machine Learning Projects',
+      image: '/ml-5-projects.jpg',
+      technologies: ['python', 'Django', 'HTML', 'CSS', 'algorithms'],
+      keyFeatures: [
+        'Air Pollution Prediction – Simple Linear Regression',
+        'Heart Disease Risk – Multiple Linear Regression',
+        'Blood Sugar Prediction – Polynomial Regression',
+        'Loan Approval – Logistic Regression',
+        'Cyber Attack Classification – K-Nearest Neighbors (KNN)'
+      ],
       links: {
         github: '#',
-        live: '#'
+        live: 'https://ml-five-projects.onrender.com/'
       }
     }
   ];
@@ -33,7 +52,7 @@ const ProjectsSection: React.FC = () => {
     <div className="space-y-8">
       <div className="text-center space-y-4">
         <h2 className="text-4xl md:text-5xl font-bold">
-          <span className="bg-gradient-primary bg-clip-text text-transparent">
+          <span className="gradient-text">
             Projects
           </span>
         </h2>
@@ -44,14 +63,13 @@ const ProjectsSection: React.FC = () => {
 
       <div className="grid md:grid-cols-2 gap-8">
         {projects.map((project, index) => (
-          <Card key={index} className="glass-card hover-lift overflow-hidden">
+          <Card key={index} className="glass-card overflow-hidden">
             <div className="relative">
               <img
                 src={project.image}
                 alt={project.title}
                 className="w-full h-48 object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
             </div>
             
             <div className="p-6 space-y-4">
@@ -72,26 +90,54 @@ const ProjectsSection: React.FC = () => {
                 ))}
               </div>
               
-              <div className="flex flex-wrap gap-2 pt-2">
-                {project.features.map((feature) => (
-                  <Button
-                    key={feature}
-                    variant="outline"
-                    size="sm"
-                    className="glass-card"
-                  >
-                    {feature}
-                    <ChevronDown className="w-3 h-3 ml-1" />
-                  </Button>
-                ))}
+              {/* Key Features Section */}
+              <div className="space-y-3">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="glass-card w-full justify-between"
+                  onClick={() => setExpandedFeatures(prev => ({
+                    ...prev,
+                    [project.id]: !prev[project.id]
+                  }))}
+                >
+                  Key Features
+                  {expandedFeatures[project.id] ? (
+                    <ChevronUp className="w-4 h-4" />
+                  ) : (
+                    <ChevronDown className="w-4 h-4" />
+                  )}
+                </Button>
+                
+                {expandedFeatures[project.id] && (
+                  <div className="pl-4 space-y-2 animate-fade-in">
+                    {project.keyFeatures.map((feature, featureIndex) => (
+                      <div key={featureIndex} className="flex items-start gap-2">
+                        <span className="text-primary mt-1">•</span>
+                        <span className="text-sm text-muted-foreground leading-relaxed">
+                          {feature}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
               
               <div className="flex gap-3 pt-4">
-                <Button size="sm" className="bg-gradient-primary hover:opacity-90">
+                <Button 
+                  size="sm" 
+                  className="bg-gradient-primary hover:opacity-90"
+                  onClick={() => window.open(project.links.github, '_blank')}
+                >
                   <Github className="w-4 h-4 mr-2" />
                   Code
                 </Button>
-                <Button variant="outline" size="sm" className="glass-card">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="glass-card"
+                  onClick={() => window.open(project.links.live, '_blank')}
+                >
                   <ExternalLink className="w-4 h-4 mr-2" />
                   Live
                 </Button>

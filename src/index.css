@@ -280,6 +280,11 @@
   * {
     cursor: none !important;
   }
+  
+  /* Exception for interactive elements */
+  button, a, [role="button"], input, select, textarea {
+    cursor: pointer !important;
+  }
 
   body::after {
     content: '';

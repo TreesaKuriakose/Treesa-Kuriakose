@@ -9,19 +9,19 @@ const CertificatesSection: React.FC = () => {
       title: 'Prompt Engineering',
       issuer: 'Cognitive Class',
       issuedBy: 'IBM SkillsNetwork',
-      date: '2025',
-      credentialId: '3072ad737fb54df3a4d3d82a6252db8f',
-      image: '/api/placeholder/400/300',
-      verifyLink: '#'
+      date: '2024',
+      credentialId: '377dba76c0bc4ac397e1b81049637124',
+      image: '/promt-enginering.jpg',
+      verifyLink: 'https://courses.cognitiveclass.ai/certificates/377dba76c0bc4ac397e1b81049637124'
     },
     {
-      title: 'Internship Program',
-      issuer: 'The Nexus Project',
-      date: '2025',
-      period: 'June 1, 2025 to June 30, 2025',
-      credentialId: '',
-      image: '/api/placeholder/400/300',
-      verifyLink: '#'
+      title: 'Data Science Tools',
+      issuer: 'Cognitive Class',
+      date: '2024',
+      //
+      credentialId: 'b928f4fd990b4fc99b8af186933322e2',
+      image: 'data-science-tools.jpg',
+      verifyLink: 'https://courses.cognitiveclass.ai/certificates/b928f4fd990b4fc99b8af186933322e2'
     }
   ];
 
@@ -29,7 +29,7 @@ const CertificatesSection: React.FC = () => {
     <div className="space-y-8">
       <div className="text-center space-y-4">
         <h2 className="text-4xl md:text-5xl font-bold">
-          <span className="bg-gradient-primary bg-clip-text text-transparent">
+          <span className="gradient-text">
             Certificates
           </span>
         </h2>
@@ -87,6 +87,7 @@ const CertificatesSection: React.FC = () => {
                 variant="outline" 
                 size="sm" 
                 className="glass-card w-full"
+                onClick={() => window.open(cert.verifyLink, '_blank')}
               >
                 <ExternalLink className="w-4 h-4 mr-2" />
                 View Certificate

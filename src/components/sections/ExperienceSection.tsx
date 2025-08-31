@@ -25,7 +25,7 @@ const ExperienceSection: React.FC = () => {
     <div className="space-y-8">
       <div className="text-center space-y-4">
         <h2 className="text-4xl md:text-5xl font-bold">
-          <span className="bg-gradient-primary bg-clip-text text-transparent">
+          <span className="gradient-text">
             Experience
           </span>
         </h2>

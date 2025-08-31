@@ -1,9 +1,13 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Github, Linkedin, Mail, ArrowRight, Code2, Users, Award } from 'lucide-react';
-import profilePhoto from '@/assets/profile-photo.jpg';
+import profilePhoto from '@/assets/treesa.jpg';
 
-const AboutSection: React.FC = () => {
+interface AboutSectionProps {
+  onTabChange?: (tab: string) => void;
+}
+
+const AboutSection: React.FC<AboutSectionProps> = ({ onTabChange }) => {
   return (
     <div className="space-y-12">
       {/* Hero Section */}
@@ -25,7 +29,7 @@ const AboutSection: React.FC = () => {
 
               <div className="space-y-4">
                 <h1 className="text-4xl md:text-6xl font-bold">
-                  <span className="bg-gradient-primary bg-clip-text text-transparent">
+                  <span className="gradient-text">
                     Treesa Kuriakose
                   </span>
                 </h1>
@@ -34,30 +38,57 @@ const AboutSection: React.FC = () => {
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
                   Exploring Full Stack Development | Learning DSA in C++ | 
-                  Computer Science Student at St Joseph's College of 
-                  Engineering and Technology
+                  MCA Student at Marian College Kuttikanam
                 </p>
               </div>
 
               <div className="flex gap-4">
-                <Button className="bg-gradient-primary hover:opacity-90 glow-primary">
+                <Button 
+                  className="bg-gradient-primary hover:opacity-90 glow-primary"
+                  onClick={() => onTabChange?.('contact')}
+                >
                   Get in Touch
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
-                <Button variant="outline" className="glass-card">
+                <Button 
+                  variant="outline" 
+                  className="glass-card"
+                  onClick={() => {
+                    // Scroll to About Me section
+                    const aboutSection = document.getElementById('about-me-section');
+                    if (aboutSection) {
+                      aboutSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                >
                   About Me
                 </Button>
               </div>
 
               {/* Social Links */}
               <div className="flex gap-4 pt-4">
-                <Button variant="outline" size="icon" className="glass-card hover-lift">
+                <Button 
+                  variant="outline" 
+                  size="icon" 
+                  className="glass-card hover-lift"
+                  onClick={() => window.open('https://github.com/TreesaKuriakose', '_blank')}
+                >
                   <Github className="w-4 h-4" />
                 </Button>
-                <Button variant="outline" size="icon" className="glass-card hover-lift">
+                <Button 
+                  variant="outline" 
+                  size="icon" 
+                  className="glass-card hover-lift"
+                  onClick={() => window.open('https://linkedin.com/in/treesa-kuriakose/', '_blank')}
+                >
                   <Linkedin className="w-4 h-4" />
                 </Button>
-                <Button variant="outline" size="icon" className="glass-card hover-lift">
+                <Button 
+                  variant="outline" 
+                  size="icon" 
+                  className="glass-card hover-lift"
+                  onClick={() => window.open('mailto:kuriakosetreesa28@gmail.com', '_blank')}
+                >
                   <Mail className="w-4 h-4" />
                 </Button>
               </div>
@@ -104,9 +135,9 @@ const AboutSection: React.FC = () => {
       </section>
 
       {/* About Me Details */}
-      <section className="space-y-8">
+      <section id="about-me-section" className="space-y-8">
         <h2 className="text-3xl font-bold text-center">
-          <span className="bg-gradient-primary bg-clip-text text-transparent">
+          <span className="gradient-text">
             About Me
           </span>
         </h2>
@@ -131,7 +162,7 @@ const AboutSection: React.FC = () => {
       {/* Skills Overview */}
       <section className="space-y-8">
         <h2 className="text-3xl font-bold text-center">
-          <span className="bg-gradient-primary bg-clip-text text-transparent">
+          <span className="gradient-text">
             Skills Overview
           </span>
         </h2>
@@ -146,13 +177,17 @@ const AboutSection: React.FC = () => {
               <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center shadow-lg">
                 <Code2 className="w-6 h-6 text-primary-foreground" />
               </div>
-              <h3 className="text-xl font-semibold">Technical Skills</h3>
-              <p className="text-muted-foreground">
-                Expertise in modern web technologies, frameworks, and tools for building robust applications.
-              </p>
-              <Button variant="link" className="p-0 h-auto text-primary hover:text-primary/80 transition-colors">
-                Learn more <ArrowRight className="w-4 h-4 ml-1" />
-              </Button>
+                             <h3 className="text-xl font-semibold">Technical Skills</h3>
+               <p className="text-muted-foreground">
+                 Expertise in modern web technologies, frameworks, and tools for building robust applications.
+               </p>
+               <Button 
+                 variant="link" 
+                 className="p-0 h-auto text-primary hover:text-primary/80 transition-colors"
+                 onClick={() => onTabChange?.('skills')}
+               >
+                 Learn more <ArrowRight className="w-4 h-4 ml-1" />
+               </Button>
             </div>
           </div>
 
@@ -162,13 +197,17 @@ const AboutSection: React.FC = () => {
               <div className="w-12 h-12 bg-gradient-secondary rounded-lg flex items-center justify-center shadow-lg">
                 <Users className="w-6 h-6 text-primary-foreground" />
               </div>
-              <h3 className="text-xl font-semibold">Work Experience</h3>
-              <p className="text-muted-foreground">
-                Professional journey across various roles and organizations, showcasing practical expertise.
-              </p>
-              <Button variant="link" className="p-0 h-auto text-primary hover:text-primary/80 transition-colors">
-                Learn more <ArrowRight className="w-4 h-4 ml-1" />
-              </Button>
+                             <h3 className="text-xl font-semibold">Work Experience</h3>
+               <p className="text-muted-foreground">
+                 Professional journey across various roles and organizations, showcasing practical expertise.
+               </p>
+               <Button 
+                 variant="link" 
+                 className="p-0 h-auto text-primary hover:text-primary/80 transition-colors"
+                 onClick={() => onTabChange?.('experience')}
+               >
+                 Learn more <ArrowRight className="w-4 h-4 ml-1" />
+               </Button>
             </div>
           </div>
 
@@ -178,13 +217,17 @@ const AboutSection: React.FC = () => {
               <div className="w-12 h-12 bg-gradient-cosmic rounded-lg flex items-center justify-center shadow-lg">
                 <Award className="w-6 h-6 text-primary-foreground" />
               </div>
-              <h3 className="text-xl font-semibold">Education & Certifications</h3>
-              <p className="text-muted-foreground">
-                Academic qualifications and professional certifications that form the foundation of my expertise.
-              </p>
-              <Button variant="link" className="p-0 h-auto text-primary hover:text-primary/80 transition-colors">
-                Learn more <ArrowRight className="w-4 h-4 ml-1" />
-              </Button>
+                             <h3 className="text-xl font-semibold">Education & Certifications</h3>
+               <p className="text-muted-foreground">
+                 Academic qualifications and professional certifications that form the foundation of my expertise.
+               </p>
+               <Button 
+                 variant="link" 
+                 className="p-0 h-auto text-primary hover:text-primary/80 transition-colors"
+                 onClick={() => onTabChange?.('certificates')}
+               >
+                 Learn more <ArrowRight className="w-4 h-4 ml-1" />
+               </Button>
             </div>
           </div>
         </div>

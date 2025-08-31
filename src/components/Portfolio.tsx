@@ -14,6 +14,8 @@ import Footer from './Footer';
 
 const Portfolio: React.FC = () => {
   const [activeTab, setActiveTab] = useState('about');
+  
+
   const [isDark, setIsDark] = useState(true);
 
   const tabs = [
@@ -47,7 +49,7 @@ const Portfolio: React.FC = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'about':
-        return <AboutSection />;
+        return <AboutSection onTabChange={setActiveTab} />;
       case 'education':
         return <EducationSection />;
       case 'projects':
@@ -61,9 +63,14 @@ const Portfolio: React.FC = () => {
       case 'contact':
         return <ContactSection />;
       default:
-        return <AboutSection />;
+        return <AboutSection onTabChange={setActiveTab} />;
     }
   };
+
+  // Scroll to top when tab changes
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [activeTab]);
 
   return (
     <div className="min-h-screen bg-background relative">
@@ -71,7 +78,7 @@ const Portfolio: React.FC = () => {
       <CursorBackground />
       
       {/* Header Row with Portfolio title, Navigation, and Theme Toggle */}
-      <header className="relative z-10 p-6">
+      <header className="fixed top-0 left-0 right-0 z-50 p-6">
         <div className="max-w-7xl mx-auto">
           <div className="glass-card rounded-xl p-4 professional-hover">
             <div className="flex items-center justify-between w-full">
@@ -142,7 +149,7 @@ const Portfolio: React.FC = () => {
       </header>
 
       {/* Enhanced Main Content */}
-      <main className="relative z-10 px-6 pb-20">
+      <main className="relative z-10 px-6 pb-20 pt-32">
         <div className="max-w-7xl mx-auto">
           <div className="min-h-[600px] animate-fade-in">
             {renderContent()}
@@ -151,7 +158,7 @@ const Portfolio: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Footer onTabChange={setActiveTab} />
     </div>
   );
 };

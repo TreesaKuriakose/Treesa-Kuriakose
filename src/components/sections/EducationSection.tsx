@@ -5,22 +5,28 @@ import { GraduationCap, Calendar } from 'lucide-react';
 const EducationSection: React.FC = () => {
   const education = [
     {
-      title: 'BTech in Computer Science and Engineering',
-      institution: "St Joseph's College of Engineering and Technology",
-      period: '2024 - 2028',
-      description: 'Pursuing my third semester in Computer Science and Engineering, with a focus on strengthening core skills in programming, data structures, and algorithms.',
+      title: 'Master of Computer Application',
+      institution: "Marian College Kuttikanam",
+      period: '2023 - 2025',
+      description: 'Pursuing my thirdsemester in MCA, with a focus on strengthening core skills in programming and Mechine Learning.',
       current: true
+    },
+    {
+      title: 'Bachelor of computer Application',
+      institution: 'M.E.S. College, Nedumkandam',
+      period: '2019 - 2022',
+      description: 'Completed Degree education in BCA'
     },
     {
       title: '12th (Pre-degree)',
       institution: 'St Thomas Higher Secondary School',
-      period: '2022 - 2024',
+      period: '2016 - 2018',
       description: 'Completed higher secondary education in Computer Science'
     },
     {
       title: '10th (SSLC)',
       institution: 'St Thomas Higher Secondary School',
-      period: '2020 - 2022',
+      period: '2015',
       description: 'Completed secondary education'
     }
   ];
@@ -29,7 +35,7 @@ const EducationSection: React.FC = () => {
     <div className="space-y-8">
       <div className="text-center space-y-4">
         <h2 className="text-4xl md:text-5xl font-bold">
-          <span className="bg-gradient-primary bg-clip-text text-transparent">
+          <span className="gradient-text">
             Education
           </span>
         </h2>
